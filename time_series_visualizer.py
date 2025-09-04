@@ -5,7 +5,7 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 # Import data (Make sure to parse dates. Consider setting index column to 'date'.)
-df = pd.read_csv('fcc-forum-pageviews.csv', index_col='date')
+df = pd.read_csv('fcc-forum-pageviews.csv')
 
 # Clean data
 low = df["value"].quantile(0.025)
@@ -13,13 +13,13 @@ high = df["value"].quantile(0.975)
 df = df[(df["value"] >= low) & (df["value"] <= high)]
 
 
-def draw_line_plot():
+def draw_line_plot(df):
     # Draw line plot
-
-
-
-
-
+    fig, ax = plt.subplots(figsize=(15, 5))
+    ax.plot(df['date'], df['value'], color='red', linewidth=1)
+    ax.set_title("Gráficos diários de visitas a páginas 5/2016-12/2019")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("value")
     # Save image and return fig (don't change this part)
     fig.savefig('line_plot.png')
     return fig
